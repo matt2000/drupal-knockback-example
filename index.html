@@ -16,6 +16,10 @@
 	<!--[if lt IE 9]>
 	<script src="js/html5shiv.js"></script>
 	<![endif]-->
+
+	<script src='js/jquery-1.9.1.min.js'></script>
+        <script src='js/knockback-full-stack.js'></script>
+        <script src="js/config.js"></script>
 </head>
 
 <!--
@@ -32,7 +36,7 @@
 	- your browser testing baseline: IE9+, recent Chrome/Firefox/Safari, and iOS/Android
 	- Graceful degradation is acceptable, and in fact highly encouraged.
 	- use classes for styling. Don't use ids.
-	- web fonts are cool, just make sure you have a license to share the files. Hosted 
+	- web fonts are cool, just make sure you have a license to share the files. Hosted
 	  services that are applied via the CSS file (ie. Google Fonts) will work fine, but
 	  most that require custom HTML won't. TypeKit is supported, see the readme on this
 	  page for usage instructions: https://github.com/mezzoblue/csszengarden.com/
@@ -45,7 +49,7 @@
 	- use the Kellum Method for image replacement, if still needed. http://goo.gl/GXxdI
 	- don't rely on the extra divs at the bottom. Use ::before and ::after instead.
 
-		
+
 -->
 
 <body id="css-zen-garden">
@@ -189,10 +193,25 @@
 	These superfluous divs/spans were originally provided as catch-alls to add extra imagery.
 	These days we have full ::before and ::after support, favour using those instead.
 	These only remain for historical design compatibility. They might go away one day.
-		
+
 -->
 <div class="extra1" role="presentation"></div><div class="extra2" role="presentation"></div><div class="extra3" role="presentation"></div>
 <div class="extra4" role="presentation"></div><div class="extra5" role="presentation"></div><div class="extra6" role="presentation"></div>
 
 </body>
+<script>
+  // Our Data Layer / Models
+  App = { articles: new Backbone.Collection() };
+  App.articles.url = Config.dataUrl || 'data/articles.json';
+
+  // The View(Model)
+  App.ViewModel = {
+    articles: kb.collectionObservable(App.articles),
+  }
+
+  // Get the data.
+  App.articles.fetch();
+
+  kb.applyBindings(App.ViewModel, document.getElementById("zen-supporting"));
+</script>
 </html>
