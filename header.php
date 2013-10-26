@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>CSS Zen Garden: The Beauty of CSS Design</title>
+	<title><?php echo variable_get('site_name', 'default'); ?></title>
 
 	<link rel="stylesheet" media="screen" href="css/style.css">
 	<link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.csszengarden.com/zengarden.xml">
@@ -57,6 +57,6 @@
 
 	<section class="intro" id="zen-intro">
 		<header role="banner">
-			<h1>CSS Zen Garden</h1>
-			<h2>The Beauty of <abbr title="Cascading Style Sheets">CSS</abbr> Design</h2>
+			<h1><?php echo variable_get('site_name', 'default'); ?></h1>
+			<h2><?php echo variable_get('site_slogan', 'the default of slogans'); ?></h2>
 		</header>
