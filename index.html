@@ -53,7 +53,7 @@
 -->
 
 <body id="css-zen-garden">
-<div class="page-wrapper">
+<div class="page-wrapper" id="viewMain">
 
 	<section class="intro" id="zen-intro">
 		<header role="banner">
@@ -66,11 +66,9 @@
 			<p>Download the example <a href="/examples/index" title="This page's source HTML code, not to be modified.">html file</a> and <a href="/examples/style.css" title="This page's sample CSS, the file you may modify.">css file</a></p>
 		</div>
 
-		<div class="preamble" id="zen-preamble" role="article">
-			<h3>The Road to Enlightenment</h3>
-			<p>Littering a dark and dreary road lay the past relics of browser-specific tags, incompatible <abbr title="Document Object Model">DOM</abbr>s, broken <abbr title="Cascading Style Sheets">CSS</abbr> support, and abandoned browsers.</p>
-			<p>We must clear the mind of the past. Web enlightenment has been achieved thanks to the tireless efforts of folk like the <abbr title="World Wide Web Consortium">W3C</abbr>, <abbr title="Web Standards Project">WaSP</abbr>, and the major browser creators.</p>
-			<p>The CSS Zen Garden invites you to relax and meditate on the important lessons of the masters. Begin to see with clarity. Learn to use the time-honored techniques in new and invigorating fashion. Become one with the web.</p>
+		<div class="preamble" id="zen-preamble" role="article" data-bind="with: featured">
+			<h3 data-bind="html: title, attr:{style: 'background-image: url('+ Image() + ')'}">featured title</h3>
+			<p data-bind="html: Body">body goes here</p>
 		</div>
 	</section>
 
@@ -187,11 +185,17 @@
   // The View(Model)
   App.ViewModel = {
     articles: kb.collectionObservable(App.articles),
+    featured: ko.observable()
   }
 
   // Get the data.
-  App.articles.fetch();
+  App.articles.fetch({success:
+    function () {
+      //Put the first Article into the featured position.
+      App.ViewModel.featured(kb.viewModel(App.articles.shift()))
+    }
+  });
 
-  kb.applyBindings(App.ViewModel, document.getElementById("zen-supporting"));
+  kb.applyBindings(App.ViewModel, document.getElementById("viewMain"));
 </script>
 </html>

@@ -299,12 +299,6 @@ header[role=banner] {
     display: block;
 }
 
-.preamble h3:before {
-    content: 'when walking on ';
-}
-.preamble h3:after {
-    content: ' don’t forget to kiss a stranger.';
-}
 
 /* h1 - "CSS Zen Garden" */
 h1 {
